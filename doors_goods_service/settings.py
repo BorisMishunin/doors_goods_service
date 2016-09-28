@@ -37,11 +37,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'web',
     'rest_framework',
-    'web_api',
-    'sales',
-    'doors_params',
+    'doors_goods_service'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -55,7 +52,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 )
 
-ROOT_URLCONF = 'doors.urls'
+ROOT_URLCONF = 'doors_goods_service.urls'
 
 TEMPLATES = [
     {
@@ -73,27 +70,11 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'doors.wsgi.application'
+WSGI_APPLICATION = 'doors_goods_service.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-
-DATABASES = {
-  #  'default': {
-  #      'ENGINE': 'django.db.backends.sqlite3',
-  #      'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-  #  }
-
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'doors',
-        'USER': 'postgres',
-        'PASSWORD': 'Bori$M31974',
-        'HOST': 'localhost',
-        'PORT': '5433',
-    }
-}
 
 
 # Internationalization

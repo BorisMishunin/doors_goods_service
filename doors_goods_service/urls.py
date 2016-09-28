@@ -1,19 +1,42 @@
+"""teeest URL Configuration
 
-from django.conf.urls import include, url
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/1.9/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.conf.urls import url, include
+    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
+"""
+from django.conf.urls import url
+from django.contrib import admin
+
+from django.conf.urls import patterns, url, include
+from django.contrib import admin
 from rest_framework.urlpatterns import format_suffix_patterns
-from web_api import views
+from rest_framework import routers
+from doors_goods_service.views import (
+    GoodsList
+)
 
-urlpatterns = [
-    url(r'^load_goods/$', 'web.views.loadGoods'),
-    url(r'^goods/$', views.GoodsList.as_view()),
-    url(r'^goods/(?P<pk>[0-9]+)$', views.GoodsDetail.as_view()),
-    url(r'^goods_colors/$', views.GoodsColorsList.as_view()),
-    url(r'^goods_colors/(?P<pk>[0-9]+)/$', views.GoodsColorDetail.as_view()),
-    url(r'^actions/$', views.ActionsList.as_view()),
-    url(r'^countries/$', views.CountriesList.as_view()),
-    url(r'^goods_properties/$', views.GoodsPropertiesList.as_view()),
-    url(r'^properties/$', views.PropertiesList.as_view()),
-    url(r'^values/$', views.ValuesList.as_view()),
-]
 
-urlpatterns = format_suffix_patterns(urlpatterns)
+admin.autodiscover()
+router = routers.DefaultRouter()
+router.register(r'/goods', GoodsList)
+
+
+urlpatterns = patterns(
+    'doors_goods_service.views',
+    url(r'^resources', include(router.urls)),
+    url(r'^admin/', include(admin.site.urls)),
+)
+
+#urlpatterns = format_suffix_patterns(urlpatterns)
+
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+urlpatterns += staticfiles_urlpatterns()
