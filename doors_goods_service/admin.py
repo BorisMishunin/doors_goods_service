@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.contrib import admin
 from doors_goods_service.models import Colors, Goods, Countries, TypesOfGoods, Values,  Properties
 # Register your models here.

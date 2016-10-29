@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """teeest URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -34,6 +36,8 @@ urlpatterns = patterns(
     'doors_goods_service.views',
     url(r'^resources', include(router.urls)),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'social/', include('social.apps.django_app.urls', namespace='social')),
+
 )
 
 #urlpatterns = format_suffix_patterns(urlpatterns)

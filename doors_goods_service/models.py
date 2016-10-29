@@ -20,9 +20,8 @@ class TypesOfGoods(models.Model):
         verbose_name = 'Тип товара'
         verbose_name_plural = 'Типы товара'
 
-    def __str__(self):
-        return str(self.name)
-
+    def __unicode__(self):
+        return self.name
 
 class Countries(models.Model):
     name = models.CharField('Название', max_length=150)
@@ -31,7 +30,7 @@ class Countries(models.Model):
         verbose_name = 'Страна'
         verbose_name_plural = 'Страны'
 
-    def __str__(self):
+    def __unicode__(self):
         return str(self.name)
 
 
@@ -40,7 +39,7 @@ class Goods(models.Model):
     name = models.CharField('Название', max_length=150)
     desc = models.TextField('Описание', null=True, blank=True)
     type = models.ForeignKey(TypesOfGoods, verbose_name='Тип товара')
-    foto = JSONField('Фото', default={})
+    foto = ArrayField(models.CharField(max_length=1000), verbose_name='Цвета', default=[])
     properties = JSONField('Свойства товара', default={})
     colors = ArrayField(models.IntegerField(), verbose_name='Цвета', default=[])
 
@@ -61,7 +60,7 @@ class Colors(models.Model):
         verbose_name = 'Цвет'
         verbose_name_plural = 'Цвета'
 
-    def __str__(self):
+    def __unicode__(self):
         return self.name
 
     def save(self, force_insert=False, force_update=False, using=None):
@@ -94,7 +93,7 @@ class Properties(models.Model):
         verbose_name_plural = 'Свойства'
         ordering = ('name',)
 
-    def __str__(self):
+    def __unicode__(self):
         return str(self.name)
 
 
@@ -106,7 +105,7 @@ class Values(models.Model):
         verbose_name = 'Значения свойств'
         verbose_name_plural = 'Значение свойства'
 
-    def __str__(self):
+    def __unicode__(self):
         return "%s - %s" % (str(self.good_property), self.value)
 
 
