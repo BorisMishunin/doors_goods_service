@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-
+from __future__ import unicode_literals
 from _json import make_encoder
+
 
 from django.db import models
 from django.contrib.postgres.fields.jsonb import JSONField
@@ -34,13 +35,14 @@ class Countries(models.Model):
         return str(self.name)
 
 
+
 class Goods(models.Model):
     article = models.CharField('Артикул', max_length=50)
     name = models.CharField('Название', max_length=150)
     desc = models.TextField('Описание', null=True, blank=True)
     type = models.ForeignKey(TypesOfGoods, verbose_name='Тип товара')
     foto = ArrayField(models.CharField(max_length=1000), verbose_name='Цвета', default=[])
-    properties = JSONField('Свойства товара', default={})
+    info = JSONField('Свойства товара', default={}, serialize=True)
     colors = ArrayField(models.IntegerField(), verbose_name='Цвета', default=[])
 
     class Meta:

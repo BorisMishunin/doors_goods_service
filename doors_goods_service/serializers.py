@@ -4,11 +4,11 @@ from django.contrib.auth.models import User, Group
 from doors_goods_service.models import Goods, Countries, Values, Properties
 from rest_framework import serializers
 
-
-
 class GoodsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Goods
+        fields = ['info',]
+        partial=True
         #fields = ['type', 'name', 'properties']
 
 

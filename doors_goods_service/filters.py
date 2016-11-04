@@ -16,12 +16,12 @@ def get_filter_func(field, lookup_expr='contains'):
 
 class GoodsFilter(django_filters.FilterSet):
 
-    properties_contains = django_filters.MethodFilter()
+    info_contains = django_filters.MethodFilter()
     colors_overlap = django_filters.MethodFilter()
 
-    filter_properties_contains = get_filter_func('properties')
+    filter_info_contains = get_filter_func('info')
     filter_colors_overlap = get_filter_func('colors', lookup_expr='overlap')
 
     class Meta:
         model = Goods
-        fields = ['type', 'properties_contains', 'colors_overlap']
+        fields = ['type', 'info_contains', 'colors_overlap']

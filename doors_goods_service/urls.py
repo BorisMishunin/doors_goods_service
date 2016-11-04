@@ -18,9 +18,9 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from django.conf.urls import patterns, url, include
+from django.conf.urls import url, include
 from django.contrib import admin
-from rest_framework.urlpatterns import format_suffix_patterns
+
 from rest_framework import routers
 from doors_goods_service.views import (
     GoodsList
@@ -32,15 +32,12 @@ router = routers.DefaultRouter()
 router.register(r'/goods', GoodsList)
 
 
-urlpatterns = patterns(
-    'doors_goods_service.views',
+urlpatterns = [
     url(r'^resources', include(router.urls)),
     url(r'^admin/', include(admin.site.urls)),
     url(r'social/', include('social.apps.django_app.urls', namespace='social')),
 
-)
+]
 
 #urlpatterns = format_suffix_patterns(urlpatterns)
 
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-urlpatterns += staticfiles_urlpatterns()
