@@ -19,7 +19,6 @@ setup(name='doors_goods_service',
       zip_safe=False,
       install_requires=[
             'django',
-            'djangorestframework'
           # -*- Extra requirements: -*-
       ],
       entry_points="""

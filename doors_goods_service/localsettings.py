@@ -10,6 +10,9 @@ from .settings import *
 
 DATABASES = json.load(open(os.environ['GOODS_DB_CONFIG']))
 
+services = {
+    'files_service': os.environ['DOORS_SERVICE_FILES'],
+}
 
 # Loggers
 try:
