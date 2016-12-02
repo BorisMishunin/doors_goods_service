@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib.auth.models import User, Group
-from doors_goods_service.models import Goods, Countries, Values, Properties
-from rest_framework import serializers, VERSION
-import django
+from doors_goods_service.models import Goods, TypesOfGoods, Properties
+from rest_framework import serializers
 import json
 
 class WritableJSONField(serializers.Field):
@@ -20,6 +19,10 @@ class GoodsSerializer(serializers.ModelSerializer):
         partial=True
         fields = "__all__"
 
-
+class TypesOfGoodsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TypesOfGoods
+        partial=True
+        fields = "__all__"
 
 

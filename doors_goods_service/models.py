@@ -41,9 +41,10 @@ class Goods(models.Model):
     name = models.CharField('Название', max_length=150)
     desc = models.TextField('Описание', null=True, blank=True)
     type = models.ForeignKey(TypesOfGoods, verbose_name='Тип товара')
-    foto = ArrayField(models.CharField(max_length=1000), verbose_name='Цвета', default=[])
+    foto = ArrayField(models.CharField(max_length=1000), verbose_name='Фото', default=[])
     info = JSONField('Свойства товара', default={}, serialize=True)
     colors = ArrayField(models.IntegerField(), verbose_name='Цвета', default=[])
+    min_price = models.FloatField('Минимальная цена', null=True, blank=True)
 
     class Meta:
         verbose_name = 'Товар'

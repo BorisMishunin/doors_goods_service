@@ -23,13 +23,14 @@ from django.contrib import admin
 
 from rest_framework import routers
 from doors_goods_service.views import (
-    GoodsList
+    GoodsList, TypesOfGoodsList
 )
 
 
 admin.autodiscover()
 router = routers.DefaultRouter()
 router.register(r'/goods', GoodsList)
+router.register(r'/goods_type', TypesOfGoodsList)
 
 
 urlpatterns = [

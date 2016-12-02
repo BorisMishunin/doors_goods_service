@@ -8,14 +8,15 @@ import doors_goods_service.localsettings as settings
 
 logger = logging.getLogger(__name__)
 
-def add_new_door(door_name,foto,door_params):
+def add_new_door(door_name,foto, type_of_good, door_params, price):
     params = {}
     for param in door_params.split(','):
         param_name, param_value = param.split(':')
         params[param_name]=param_value
 
-    type, created = TypesOfGoods.objects.get_or_create(name='doors')
-    door = Goods.objects.create(article=door_name, name=door_name, type=type, foto=[], colors=[], info=dict(params))
+    type, created = TypesOfGoods.objects.get_or_create(name=type_of_good)
+
+    door = Goods.objects.create(article=door_name, name=door_name, type=type, foto=[], colors=[], info=dict(params), min_price=int(price))
     add_door_params(door, door_params)
     upload_file(door, foto)
 
@@ -61,13 +62,13 @@ class Command(BaseCommand):
             filename = options['filename']
             with open(os.path.join(import_file, filename)) as import_data:
                 for line in import_data:
-                    door_name, fotos_list, door_params = line.split(';')
+                    door_name, fotos_list, type_of_good, door_params, price = line.split(';')
                     for foto in fotos_list.split(','):
-                        if True:
-                            add_new_door(door_name + '_' + foto, os.path.join(import_file, foto + '.jpg'), door_params)
+                        try:
+                            add_new_door(door_name + '_' + foto, os.path.join(import_file, foto + '.jpg'), type_of_good, door_params, price)
                             print 'add good - %s' % foto
-                        #except:
-                        #    pass
+                        except:
+                            print 'not add good - %s' % foto
 
         except Exception, e:
             print e
