@@ -16,10 +16,12 @@ TYPES_OF_GOODS = ((0, 'Двери'), (1, 'Акссесуары'))
 
 class TypesOfGoods(models.Model):
     name = models.CharField('Название', max_length=150)
+    min_price = models.FloatField('Минимальная цена', null=True, blank=True)
 
     class Meta:
         verbose_name = 'Тип товара'
         verbose_name_plural = 'Типы товара'
+        ordering = ['min_price']
 
     def __unicode__(self):
         return self.name
@@ -42,6 +44,7 @@ class Goods(models.Model):
     desc = models.TextField('Описание', null=True, blank=True)
     type = models.ForeignKey(TypesOfGoods, verbose_name='Тип товара')
     foto = ArrayField(models.CharField(max_length=1000), verbose_name='Фото', default=[])
+    classes = ArrayField(models.CharField(max_length=1000), verbose_name='Классы товара', default=[])
     info = JSONField('Свойства товара', default={}, serialize=True)
     colors = ArrayField(models.IntegerField(), verbose_name='Цвета', default=[])
     min_price = models.FloatField('Минимальная цена', null=True, blank=True)
@@ -89,7 +92,8 @@ class Colors(models.Model):
 
 
 class Properties(models.Model):
-    name = models.CharField('Имя', max_length=150)
+    name = models.CharField('Название', max_length=150)
+    local_name = JSONField('Имя', default={}, serialize=True)
 
     class Meta:
         verbose_name = 'Свойство'
@@ -99,8 +103,22 @@ class Properties(models.Model):
     def __unicode__(self):
         return str(self.name)
 
+class GoodsClasses(models.Model):
+    name = models.CharField('Название', max_length=150)
+    local_name = JSONField('Имя', default={}, serialize=True)
+    info = JSONField('Инфо', default={}, serialize=True)
 
-class Values(models.Model):
+    class Meta:
+        verbose_name = 'Класс товара'
+        verbose_name_plural = 'Классы товара'
+        ordering = ('name',)
+
+    def __unicode__(self):
+        return str(self.name)
+
+
+
+class PropertiesValues(models.Model):
     good_property = models.ForeignKey(Properties, verbose_name="Свойство", related_name="property_values")
     value = models.CharField('Значение', max_length=150)
 
